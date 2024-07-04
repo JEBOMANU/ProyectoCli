@@ -53,32 +53,14 @@ function uno(tabla, id_usuario){
 
 }
 
-
-
-
-function insertar(tabla, data){
+function agregar(tabla, data){
     return new Promise((resolve, reject) =>{
-        conexion.query(`INSERT INTO ${tabla} SET= ?`, data, (error, result) => {
+        conexion.query(`INSERT INTO ${tabla} SET ? ON DUPLICATE KEY UPDATE ?`, [data, data], (error, result) => {
             return error ? reject(error) : resolve(result)
         })
     });
 }
 
-function actualizar(tabla, data){
-    return new Promise((resolve, reject) =>{
-        conexion.query(`UPDATE ${tabla} SET id_usuario= ?`, [data.id_usuario], (error, result) => {
-            return error ? reject(error) : resolve(result)
-        })
-    });
-}
-
-function agregar(tabla, data) {
-    if (data && data.id_usuario ==0){
-        return insertar(tabla, data);
-    }else{
-        return actualizar(tabla, data);
-}
-}
 
 function eliminar(tabla, data){
     return new Promise((resolve, reject) =>{
@@ -88,9 +70,61 @@ function eliminar(tabla, data){
     });
 }
 
+function query(tabla, consulta){
+    return new Promise((resolve, reject) =>{
+        conexion.query(`SELECT * FROM ${tabla} WHERE ?`, consulta, (error, result) => {
+            return error ? reject(error) : resolve(result[0])
+        })
+    });
+}
+
+function obtenerPacientes(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, result) => {
+            return error ? reject(error) : resolve(result);
+        })
+    })
+}
+
+function obtenerCI(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, result) => {
+            return error ? reject(error) : resolve(result);
+        })
+    })
+}
+
+
+function agregarPaciente(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, result) => {
+            return error ? reject(error) : resolve(result);
+        })
+    })
+}
+
+async function eliminarPaciente(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            resolve(results);
+        });
+    });
+}
+
+
+
+
 module.exports =  {
     todos,
     uno,
     agregar,
-    eliminar
+    eliminar,
+    query,
+    obtenerPacientes,
+    obtenerCI,
+    agregarPaciente,
+    eliminarPaciente
 }
