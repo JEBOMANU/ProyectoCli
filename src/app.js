@@ -6,6 +6,7 @@ const usuario = require('./modulos/usuario/rutas');
 const error = require('./modulos/red/errors');
 const auth = require('./modulos/auth/rutas');
 const paciente = require('./modulos/pacientes/rutas')
+const admisiones = require('./modulos/admisiones/rutas');
 
 
 
@@ -25,6 +26,8 @@ app.use('/api/usuario', usuario)
 app.use('/api/auth', auth)
 
 app.use('/api/paciente', paciente)
+
+app.use('/api/admisiones', admisiones)
 
 app.use(error);
 

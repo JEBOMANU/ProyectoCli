@@ -37,11 +37,10 @@ conMysql();
 function todos(tabla){
     return new Promise((resolve, reject) =>{
         conexion.query(`SELECT * FROM ${tabla}`, (error, result)=> {
-           return error ? reject(error) : resolve(result);
+        return error ? reject(error) : resolve(result);
             resolve(result);
         })
     });
-
 }
 
 function uno(tabla, id_usuario){
@@ -114,7 +113,33 @@ async function eliminarPaciente(sql, params) {
     });
 }
 
+function obtenerAdmision(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, result) => {
+            return error ? reject(error) : resolve(result);
+        })
+    })
+}
 
+function agregarAdmision(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, result) => {
+            return error ? reject(error) : resolve(result);
+        });
+    });
+}
+
+
+async function eliminarAdmision(sql, params) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, params, (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            resolve(results);
+        });
+    });
+}
 
 
 module.exports =  {
@@ -126,5 +151,8 @@ module.exports =  {
     obtenerPacientes,
     obtenerCI,
     agregarPaciente,
-    eliminarPaciente
+    eliminarPaciente,
+    obtenerAdmision,
+    agregarAdmision,
+    eliminarAdmision
 }

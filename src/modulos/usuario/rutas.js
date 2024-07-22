@@ -6,9 +6,9 @@ const respuesta = require('../red/respuestas');
 const controlador = require('./index');
 const router = express.Router();
 
-router.get('/', todos);
+router.get('/',  todos);
 router.get('/:id', uno);
-router.post('/', seguridad(), agregar); //agregar seguridad() en ambos
+router.post('/', seguridad(), agregar);
 router.put('/', eliminar);
 
 

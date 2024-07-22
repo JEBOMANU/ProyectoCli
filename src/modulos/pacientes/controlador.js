@@ -125,7 +125,7 @@ module.exports = function(dbInyectada){
     
     async function eliminar(id_paciente){
         const sql = `CALL sp_eliminar_paciente(?)`;
-        const params = [id_paciente];
+        const params = [id_paciente]
 
         try {
             await db.eliminarPaciente(sql, params);
@@ -136,7 +136,6 @@ module.exports = function(dbInyectada){
             throw new Error('Error al eliminar paciente');
         }
     }
-    
     return{
         todos,
         obtenerCI,
